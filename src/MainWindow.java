@@ -40,7 +40,7 @@ public class MainWindow extends JFrame
 		quitButton.setFont(buttonFont);
 		
 		c.weightx = 1;
-		c.weighty = 1/3d;
+		c.weighty = 1 / 3d;
 		c.insets = new Insets(5, 0, 5, 0);
 		c.gridx = 0;
 		
@@ -101,21 +101,17 @@ public class MainWindow extends JFrame
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource() == playGameButton)
+		if (e.getSource() == playGameButton)
 		{
 			Game.main(new String[]{});
 			dispose();
-		}
-		else if(e.getSource() == settingsButton)
+		} else if (e.getSource() == settingsButton)
 		{
 			cl.show(getContentPane(), settingsPanel.getName());
-		}
-		else if(e.getSource() == quitButton)
+		} else if (e.getSource() == quitButton)
 		{
 			System.exit(0);
-		}
-		
-		else if(e.getSource() == backToMainButton)
+		} else if (e.getSource() == backToMainButton)
 		{
 			cl.show(getContentPane(), mainPanel.getName());
 		}
