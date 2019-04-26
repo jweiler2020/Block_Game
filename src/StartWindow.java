@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MainWindow extends JFrame
+public class StartWindow extends JFrame
 	implements ActionListener
 {
 	private JButton playGameButton, settingsButton, quitButton;
@@ -10,7 +10,7 @@ public class MainWindow extends JFrame
 	private JPanel mainPanel, settingsPanel;
 	private CardLayout cl = new CardLayout();
 	
-	public MainWindow(String title)
+	public StartWindow(String title)
 	{
 		super(title);
 		
@@ -19,7 +19,7 @@ public class MainWindow extends JFrame
 		Font buttonFont = new Font("Arial", Font.PLAIN, 15);
 		GridBagConstraints c = new GridBagConstraints();
 		
-		//----------------------------Start Main Panel------------------------------
+		//----------------------------Start Main Panel------------------------------//
 		JLabel mainPanelLabel = new JLabel("Block Game 2019 Edition™", JLabel.CENTER);
 		mainPanelLabel.setFont(labelFont);
 		
@@ -65,10 +65,10 @@ public class MainWindow extends JFrame
 		mainPanel.add(mainPanelLabel, c);
 		c.gridy++;
 		mainPanel.add(buttonPanel, c);
-		//----------------------------End Main Panel--------------------------------
+		//----------------------------End Main Panel--------------------------------//
 		
 		
-		//----------------------------Start Settings Panel--------------------------
+		//----------------------------Start Settings Panel--------------------------//
 		JLabel settingsPanelLabel = new JLabel("Settings");
 		settingsPanelLabel.setFont(labelFont);
 		
@@ -90,7 +90,7 @@ public class MainWindow extends JFrame
 		settingsPanel.add(settingsPanelLabel, c);
 		c.gridy++;
 		settingsPanel.add(backToMainButton, c);
-		//---------------------------End Settings Panel-----------------------------
+		//---------------------------End Settings Panel-----------------------------//
 		
 		Container con = getContentPane();
 		con.setLayout(cl);
@@ -103,7 +103,7 @@ public class MainWindow extends JFrame
 	{
 		if (e.getSource() == playGameButton)
 		{
-			Game.main(new String[]{});
+			new GameController();
 			dispose();
 		} else if (e.getSource() == settingsButton)
 		{
@@ -119,7 +119,7 @@ public class MainWindow extends JFrame
 	
 	public static void main(String[] args)
 	{
-		MainWindow win = new MainWindow("Block Game 2019 Edition™");
+		StartWindow win = new StartWindow("Block Game 2019 Edition™");
 		win.setBounds(200, 200, 400, 300);
 		win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		win.setResizable(false);
