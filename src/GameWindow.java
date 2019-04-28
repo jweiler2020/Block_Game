@@ -6,16 +6,15 @@ public class GameWindow extends JFrame
 	private Image backImage;
 	
 	private final int w, h;
-	
-	private double dt;
-	
-	private double x, y;
-	
-	public GameWindow(int w, int h)
+	private final Block[] blocks;
+
+	public GameWindow(int w, int h, GameController gc,  Block[] blocks)
 	{
 		super("Block Game 2019 Edition™");
 		this.w = w;
 		this.h = h;
+		this.addKeyListener(gc);
+		this.blocks = blocks;
 	}
 	
 	public void paint(Graphics g)
@@ -32,15 +31,9 @@ public class GameWindow extends JFrame
 	
 	private void draw(Graphics g)
 	{
-		// TODO: do actual things here rather than just moving a single block
-		g.fillRect((int)x, (int)y, w/4, h/4);
-		x += 20*dt;
-		y += 20*dt;
-	}
-	
-	public void repaint(double dt)
-	{
-		this.dt = dt;
-		super.repaint();
+		for(Block b : blocks)
+		{
+			b.draw(g);
+		}
 	}
 }
