@@ -34,7 +34,7 @@ public class GameController
 		blocks[0] = p;
 		for(int i = 0; i < enemyCount; i++)
 		{
-			EnemyBlock b = new EnemyBlock(Math.random()*WIDTH, 0, enemyWidth, enemyHeight, enemySpeed + 50*(2*Math.random()-1), enemyColor);
+			EnemyBlock b = new EnemyBlock(Math.random()*WIDTH, 0, enemyWidth, enemyHeight, enemySpeed + 100*(2*Math.random()-1), enemyColor);
 			blocks[i+1] = b;
 			enemyBlocks[i] = b;
 		}
@@ -66,7 +66,10 @@ public class GameController
 			{
 				b.setX(Math.random()*WIDTH);
 				b.setY(-b.getH());
-				b.setS(b.getS()*1.01 + 10*(2*Math.random()-1));
+				// Exponential acceleration: more difficult and crazier
+				//b.setS(b.getS()*1.01 + 10*(2*Math.random()-1));
+				// Linear acceleration: less difficult but more manageable
+				b.setS(b.getS() + 5 + 10*(2*Math.random()-1));
 			}
 			if(p.touching(b))
 				System.out.println("touching block");
