@@ -9,6 +9,7 @@ public class GameController
 	private final int HEIGHT = 600;
 	
 	private long timeStart;
+	private long timeZero;
 
 	private PlayerBlock p;
 	private final double playerSpeed = 500;
@@ -47,11 +48,13 @@ public class GameController
 
 		new Timer((int)(1000/60f), this).start();
 		timeStart = System.nanoTime();
+		timeZero = System.nanoTime();
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
 		double dt = (System.nanoTime() - timeStart)/1000000000f;
+		double time = (System.nanoTime() - timeZero)/1000000000f;
 
 		p.changeX(playerMove*playerSpeed*dt);
 		if(p.getX() < 0)
@@ -59,26 +62,29 @@ public class GameController
 		else if(p.getX() > WIDTH - p.getW())
 			p.setX(WIDTH - p.getW());
 
-		for(EnemyBlock b : enemyBlocks)
+		if(time > 3)
 		{
-			b.changeY(b.getS()*dt);
-			if(b.getY() > HEIGHT)
+			for (EnemyBlock b : enemyBlocks)
 			{
-				b.setX(Math.random()*WIDTH);
-				b.setY(-b.getH());
-				// Exponential acceleration: more difficult and crazier
-				//b.setS(b.getS()*1.01 + 10*(2*Math.random()-1));
-				// Linear acceleration: less difficult but more manageable
-				b.setS(b.getS() + 5 + 10*(2*Math.random()-1));
+				b.changeY(b.getS() * dt);
+				if (b.getY() > HEIGHT)
+				{
+					b.setX(Math.random() * WIDTH);
+					b.setY(-b.getH());
+					// Exponential acceleration: more difficult and crazier
+					//b.setS(b.getS()*1.01 + 10*(2*Math.random()-1));
+					// Linear acceleration: less difficult but more manageable
+					b.setS(b.getS() + 5 + 10 * (2 * Math.random() - 1));
+				}
+				if (p.touching(b))
+					game.gameOver();
 			}
-			if(p.touching(b))
-				System.out.println("touching block");
 		}
 
 		game.repaint();
 		timeStart = System.nanoTime();
 	}
-	
+
 	public void keyPressed(KeyEvent e)
 	{
 		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)

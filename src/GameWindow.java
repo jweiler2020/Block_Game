@@ -8,6 +8,8 @@ public class GameWindow extends JFrame
 	private final int w, h;
 	private final Block[] blocks;
 
+	private boolean gameOver = false;
+
 	public GameWindow(int w, int h, GameController gc,  Block[] blocks)
 	{
 		super("Block Game 2019 Edition™");
@@ -15,6 +17,11 @@ public class GameWindow extends JFrame
 		this.h = h;
 		this.addKeyListener(gc);
 		this.blocks = blocks;
+	}
+
+	public void gameOver()
+	{
+		gameOver = true;
 	}
 	
 	public void paint(Graphics g)
@@ -31,9 +38,20 @@ public class GameWindow extends JFrame
 	
 	private void draw(Graphics g)
 	{
-		for(Block b : blocks)
+		if(!gameOver)
 		{
-			b.draw(g);
+			for (Block b : blocks)
+			{
+				b.draw(g);
+			}
+		}
+		else
+		{
+			g.setFont(new Font("Helvetica", Font.PLAIN, w/8));
+			FontMetrics fm = g.getFontMetrics();
+			int width = fm.stringWidth("Game Over");
+			int height = fm.getHeight();
+			g.drawString("Game Over", w/2-width/2, h/2+height/4);
 		}
 	}
 }
